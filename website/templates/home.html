@@ -1,0 +1,96 @@
+{% extends "base.html" %} {% block title %}CoviChecker Home{% endblock %} {%
+block content%}
+<br />
+<p align="center">Welcome To CoviChecker Home</p>
+<form method="POST">
+  <div class="container border border-2 rounded border-success bg-light">
+    <br />
+    <label for="name">Name : </label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="Enter your name"
+    />
+    <br />
+  </div>
+  <br />
+  <div class="container border border-2 rounded border-success bg-light">
+    <br />
+    <h6>Please answer the below questions :</h6>
+    <br />
+    <p>Do you feel difficulty in breathing or shortness of breath ?</p>
+    <div class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        id="short_breadth"
+        name="short_breadth"
+        value="Yes"
+      />
+      <label class="form-check-label" for="short_breadth">Yes</label>
+    </div>
+    <div class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        id="short_breadth"
+        name="short_breadth"
+        value="No"
+      />
+      <label class="form-check-label" for="short_breadth">No</label>
+    </div>
+    <br />
+
+    <p>Do you feel loss of speech or mobility, or confusion ?</p>
+    <div class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        id="confusion"
+        name="confusion"
+        value="Yes"
+      />
+      <label class="form-check-label" for="confusion">Yes</label>
+    </div>
+    <div class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        id="confusion"
+        name="confusion"
+        value="No"
+      />
+      <label class="form-check-label" for="confusion">No</label>
+    </div>
+    <br />
+
+    <p>Do you feel chest pain ?</p>
+    <div class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        id="chest_pain"
+        name="chest_pain"
+        value="Yes"
+      />
+      <label class="form-check-label" for="chest_pain">Yes</label>
+    </div>
+    <div class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        id="chest_pain"
+        name="chest_pain"
+        value="No"
+      />
+      <label class="form-check-label" for="chest_pain">No</label>
+    </div>
+    <br />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-outline-success">Submit</button>
+</form>
+<br />
+{% endblock %}

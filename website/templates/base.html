@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-dark" style="background-color: #117a65">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><i class="fa-solid fa-virus-covid fa-shake"></i> CoviChecker</a
+        >
+      </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alert-dismissible fade show">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% elif category == 'primary'%}
+    <div class="alert alert-primary alert-dismissible fade show">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissible fade show">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+    <div class="container">{% block content %}{% endblock %}</div>
+  </body>
+  <footer class="footer mt-auto py-3" style="background-color: #abebc6">
+    <div class="container text-center">
+      Made with <i class="fa-solid fa-heart fa-beat"></i> by
+      <b>RohanAlmighty</b>
+    </div>
+  </footer>
+</html>

@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block title %}CoviChecker Result{% endblock %} {%
+block content%}
+<br />
+<p align="center">CoviChecker Result</p>
+<br />
+<div class="container">
+  <div class="row justify-content-center gx-5">
+    <div class="col-md-3 text-center">
+      <div class="p-3 border border-2 rounded border-success bg-light">
+        Name :<br />{{ user.name }}
+      </div>
+    </div>
+    <div class="col-md-3 text-center">
+      <div class="p-3 border border-2 rounded border-success bg-light">
+        Covid-19 Postivity Chance :<br />{{ result.positivityChance }}
+      </div>
+    </div>
+  </div>
+  <br /><br />
+  <div class="row" style="text-align: center">
+    {% if result.positivityChance == "High" %}
+    <i class="fa-solid fa-gauge-high fa-9x"></i>
+    {% elif result.positivityChance == "Moderate" %}
+    <i class="fa-solid fa-gauge fa-9x"></i>
+    {% else %}
+    <i class="fa-solid fa-gauge fa-9x"></i>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
