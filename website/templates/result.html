@@ -19,11 +19,14 @@ block content%}
   <br /><br />
   <div class="row" style="text-align: center">
     {% if result.positivityChance == "High" %}
-    <i class="fa-solid fa-gauge-high fa-9x"></i>
+    <i class="fa-solid fa-skull fa-7x" style="color: #ff2a09"></i>
     {% elif result.positivityChance == "Moderate" %}
-    <i class="fa-solid fa-gauge fa-9x"></i>
+    <i
+      class="fa-regular fa-face-grin-beam-sweat fa-7x"
+      style="color: #ffa500"
+    ></i>
     {% else %}
-    <i class="fa-solid fa-gauge fa-9x"></i>
+    <i class="fa-regular fa-face-smile-wink fa-7x" style="color: #117a65"></i>
     {% endif %}
   </div>
 </div>
