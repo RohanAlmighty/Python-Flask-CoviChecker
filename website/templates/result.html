@@ -12,15 +12,15 @@ block content%}
     </div>
     <div class="col-md-3 text-center">
       <div class="p-3 border border-2 rounded border-success bg-light">
-        Covid-19 Postivity Chance :<br />{{ result.positivityChance }}
+        Covid-19 Postivity Chance :<br />{{ result.positivity_chance }}
       </div>
     </div>
   </div>
   <br /><br />
   <div class="row" style="text-align: center">
-    {% if result.positivityChance == "High" %}
+    {% if result.positivity_chance == "High" %}
     <i class="fa-solid fa-skull fa-7x" style="color: #ff2a09"></i>
-    {% elif result.positivityChance == "Moderate" %}
+    {% elif result.positivity_chance == "Moderate" %}
     <i
       class="fa-regular fa-face-grin-beam-sweat fa-7x"
       style="color: #ffa500"

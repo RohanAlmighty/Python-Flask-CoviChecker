@@ -11,6 +11,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <title>{% block title %}Home{% endblock %}</title>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
   </head>
   <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-dark" style="background-color: #117a65">

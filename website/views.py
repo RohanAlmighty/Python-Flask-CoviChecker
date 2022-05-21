@@ -33,13 +33,13 @@ def home():
 @views.route('/result', methods=['GET', 'POST'])
 def result(user):
     if user.short_breadth == 'Yes' and user.confusion == 'Yes' and user.chest_pain == 'Yes':
-        positivityChance = "High"
+        positivity_chance = "High"
     elif user.short_breadth == 'No' and user.confusion == 'No' and user.chest_pain == 'No':
-        positivityChance = "Low"
+        positivity_chance = "Low"
     else:
-        positivityChance = "Moderate"
+        positivity_chance = "Moderate"
 
-    new_result = Result(positivityChance=positivityChance, userId=user.id)
+    new_result = Result(positivity_chance=positivity_chance, userId=user.id)
     db.session.add(new_result)
     db.session.commit()
     flash('Result generated', category='success')

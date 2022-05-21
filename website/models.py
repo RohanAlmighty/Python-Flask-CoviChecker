@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 
 class Result(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    positivityChance = db.Column(db.String(10))
+    positivity_chance = db.Column(db.String(10))
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
