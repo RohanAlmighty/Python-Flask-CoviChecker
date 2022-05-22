@@ -1,24 +1,20 @@
-import imp
-from mimetypes import init
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from .env import db_secret_key, db_name, db_uri
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
 
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "thisismykey"
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SECRET_KEY'] = db_secret_key
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     db.init_app(app)
 
     from .views import views
 
     app.register_blueprint(views, url_prefix='/')
-
-    from .models import User, Result
 
     create_database(app)
 
@@ -26,6 +22,5 @@ def create_app():
 
 
 def create_database(app):
-    if not path.exists('website/'+DB_NAME):
+    if not path.exists('website/'+db_name):
         db.create_all(app=app)
-        print("DB Created !!")

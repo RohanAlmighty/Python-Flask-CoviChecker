@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash
 from website import views
 from .models import Result, User
 from . import db
+from mailjet_rest import Client
+from .env import mail_api_key, mail_api_secret, recipient_mail_id, sender_mail_id
 
 views = Blueprint('views', __name__)
 
@@ -13,7 +15,6 @@ def home():
         short_breadth = request.form.get('short_breadth')
         confusion = request.form.get('confusion')
         chest_pain = request.form.get('chest_pain')
-        print(name, short_breadth, confusion, chest_pain)
 
         if len(name) == 0:
             flash('Name cannot be empty', category='error')
@@ -25,6 +26,7 @@ def home():
             db.session.add(new_user)
             db.session.commit()
             flash('Data submitted successfully', category='primary')
+
             return result(new_user)
 
     return render_template("home.html")
@@ -43,4 +45,32 @@ def result(user):
     db.session.add(new_result)
     db.session.commit()
     flash('Result generated', category='success')
+    send_mail(user, new_result)
     return render_template("result.html", user=user, result=new_result)
+
+
+def send_mail(user, new_result):
+    api_key = mail_api_key
+    api_secret = mail_api_secret
+    mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+    data = {
+        'Messages': [
+            {
+                "From": {
+                    "Email": sender_mail_id,
+                    "Name": "CoviChecker"
+                },
+                "To": [
+                    {
+                        "Email": recipient_mail_id,
+                        "Name": "Admin"
+                    }
+                ],
+                "Subject": "CoviChecker : New Data Submitted",
+                "HTMLPart": "Dear Admin,<br />Name : {{ var:username }}<br />Positivity Chance : {{ var:userresult }}",
+                "TemplateLanguage": True,
+                "Variables": {"username": user.name, "userresult": new_result.positivity_chance}
+            }
+        ]
+    }
+    mailjet.send.create(data=data)
