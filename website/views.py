@@ -1,9 +1,11 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, make_response, redirect, render_template, request, flash, url_for
 from website import views
 from .models import Result, User
 from . import db
 from mailjet_rest import Client
-from .env import mail_api_key, mail_api_secret, recipient_mail_id, sender_mail_id
+from .env import mail_api_key, mail_api_secret, recipient_mail_id, sender_mail_id, path_wkhtmltopdf
+import pdfkit
+
 
 views = Blueprint('views', __name__)
 
@@ -44,7 +46,10 @@ def result(user):
     new_result = Result(positivity_chance=positivity_chance, userId=user.id)
     db.session.add(new_result)
     db.session.commit()
+
     flash('Result generated', category='success')
+    generate_pdf(user, new_result)
+
     send_mail(user, new_result)
     return render_template("result.html", user=user, result=new_result)
 
@@ -74,3 +79,10 @@ def send_mail(user, new_result):
         ]
     }
     mailjet.send.create(data=data)
+
+
+def generate_pdf(user, new_result):
+    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    rendered = render_template("report.html", user=user, result=new_result)
+    pdfkit.from_string(
+        rendered, 'CoviCheckerReport.pdf', configuration=config)
