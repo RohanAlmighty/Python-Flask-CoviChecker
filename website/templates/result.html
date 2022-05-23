@@ -29,5 +29,20 @@ block content%}
     <i class="fa-regular fa-face-smile-wink fa-7x" style="color: #117a65"></i>
     {% endif %}
   </div>
+  <br /><br />
+  <div class="d-flex justify-content-center text-center">
+    <form action="/genreport" method="POST">
+      <input type="hidden" id="user" name="user" value="{{ user.name }}" />
+      <input
+        type="hidden"
+        id="result"
+        name="result"
+        value="{{ result.positivity_chance }}"
+      />
+      <button type="submit" class="btn btn-outline-success">
+        Download Report
+      </button>
+    </form>
+  </div>
 </div>
 {% endblock %}

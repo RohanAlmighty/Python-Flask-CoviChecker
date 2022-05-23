@@ -48,10 +48,29 @@ def result(user):
     db.session.commit()
 
     flash('Result generated', category='success')
-    generate_pdf(user, new_result)
 
     send_mail(user, new_result)
     return render_template("result.html", user=user, result=new_result)
+
+
+@views.route('/report/<user>/<result>')
+def report(user, result):
+    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    rendered = render_template("report.html", user=user, result=result)
+    pdf = pdfkit.from_string(
+        rendered, False, configuration=config)
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=CoviCheckerReport.pdf'
+    return response
+
+
+@views.route('/genreport', methods=['GET', 'POST'])
+def genreport():
+    if request.method == 'POST':
+        user = request.form.get('user')
+        result = request.form.get('result')
+        return redirect(url_for('views.report', user=user, result=result))
 
 
 def send_mail(user, new_result):
@@ -79,10 +98,3 @@ def send_mail(user, new_result):
         ]
     }
     mailjet.send.create(data=data)
-
-
-def generate_pdf(user, new_result):
-    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-    rendered = render_template("report.html", user=user, result=new_result)
-    pdfkit.from_string(
-        rendered, 'CoviCheckerReport.pdf', configuration=config)
