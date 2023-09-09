@@ -1,3 +1,5 @@
+.venv/
+__pycache__/
 website/__pycache__/
-website/database.db
 website/env.py
+*.db
